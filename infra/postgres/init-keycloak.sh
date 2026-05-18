@@ -15,3 +15,9 @@ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '$KEYCLOAK_DB_NAME')\g
 
 GRANT ALL PRIVILEGES ON DATABASE $KEYCLOAK_DB_NAME TO $KEYCLOAK_DB_USER;
 SQL
+
+# Ensure the keycloak user can create objects in the public schema of its database
+psql --username "$POSTGRES_USER" --dbname "$KEYCLOAK_DB_NAME" <<SQL
+ALTER SCHEMA public OWNER TO $KEYCLOAK_DB_USER;
+GRANT ALL PRIVILEGES ON SCHEMA public TO $KEYCLOAK_DB_USER;
+SQL
