@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pulsefit-backend
+  datasource:
+    url: ${APP_DB_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${APP_PUBLIC_BASE_URL}/auth/realms/${KEYCLOAK_REALM}
+          jwk-set-uri: http://keycloak:8080/auth/realms/${KEYCLOAK_REALM}/protocol/openid-connect/certs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  public-base-url: ${APP_PUBLIC_BASE_URL}
+  keycloak:
+    realm: ${KEYCLOAK_REALM}
+    frontend-client-id: ${KEYCLOAK_FRONTEND_CLIENT_ID}
+    backend-client-id: ${KEYCLOAK_BACKEND_CLIENT_ID}
+    backend-client-secret: ${KEYCLOAK_BACKEND_CLIENT_SECRET}
+    admin-username: ${KEYCLOAK_ADMIN}
+    admin-password: ${KEYCLOAK_ADMIN_PASSWORD}
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY}
+    publishable-key: ${STRIPE_PUBLISHABLE_KEY}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET}
+    session-price-id: ${STRIPE_PRICE_ID_SESSION}
+    class-pack-price-id: ${STRIPE_PRICE_ID_CLASS_PACK}
+    commission-rate: 0.12

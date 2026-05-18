@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-brand-background text-brand-text font-sans antialiased;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  :focus-visible {
+    outline: 3px solid theme('colors.brand.primary');
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .pulse-surface {
+    @apply rounded-xl border border-slate-200 bg-white/90 shadow-md backdrop-blur;
+  }
+}

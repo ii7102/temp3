@@ -1,0 +1,11 @@
+.env
+node_modules/
+dist/
+target/
+*.log
+.DS_Store
+frontend/.vite/
+backend/.mvn/
+frontend/.turbo/
+coverage/
+PulseFit/

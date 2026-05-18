@@ -1,0 +1,46 @@
+{
+  "realm": "${KEYCLOAK_REALM}",
+  "enabled": true,
+  "registrationAllowed": true,
+  "resetPasswordAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "verifyEmail": false,
+  "internationalizationEnabled": true,
+  "defaultRoles": ["guest", "user"],
+  "roles": {
+    "realm": [
+      { "name": "guest" },
+      { "name": "user" },
+      { "name": "admin" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "${KEYCLOAK_FRONTEND_CLIENT_ID}",
+      "name": "PulseFit frontend",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "redirectUris": ["${APP_PUBLIC_BASE_URL}/*"],
+      "webOrigins": ["${APP_PUBLIC_BASE_URL}"],
+      "protocol": "openid-connect"
+    },
+    {
+      "clientId": "${KEYCLOAK_BACKEND_CLIENT_ID}",
+      "name": "PulseFit backend",
+      "enabled": true,
+      "publicClient": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${KEYCLOAK_BACKEND_CLIENT_SECRET}",
+      "protocol": "openid-connect"
+    }
+  ]
+}
